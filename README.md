@@ -1,98 +1,6 @@
 1. Codingan PHP nya :
 
-```
-<?php
-// Koneksi ke database
-$conn = new mysqli("localhost", "root", "", "toko");
-
-if ($conn->connect_error) {
-    die("Koneksi gagal: " . $conn->connect_error);
-}
-
-// Variabel untuk data barang saat edit
-$dataEdit = [
-    'id_barang' => '',
-    'nama' => '',
-    'kategori' => '',
-    'gambar' => '',
-    'harga_beli' => '',
-    'harga_jual' => '',
-    'stok' => '',
-];
-
-// Ambil data barang untuk mode edit
-if (isset($_GET['edit'])) {
-    $id_barang = (int)$_GET['edit'];
-    $sql = "SELECT * FROM barang WHERE id_barang = $id_barang";
-    $resultEdit = $conn->query($sql);
-    if ($resultEdit && $resultEdit->num_rows > 0) {
-        $dataEdit = $resultEdit->fetch_assoc();
-    }
-}
-
-// Tambah data barang
-if (isset($_POST['tambah'])) {
-    $nama = $conn->real_escape_string($_POST['nama']);
-    $kategori = $conn->real_escape_string($_POST['kategori']);
-    $harga_jual = (int)$_POST['harga_jual'];
-    $harga_beli = (int)$_POST['harga_beli'];
-    $stok = (int)$_POST['stok'];
-
-    // Proses upload gambar
-    $target_dir = "uploads/";
-    $gambar_name = basename($_FILES["gambar"]["name"]);
-    $target_file = $target_dir . $gambar_name;
-    $uploadOk = 1;
-
-    if (move_uploaded_file($_FILES["gambar"]["tmp_name"], $target_file)) {
-        $sql = "INSERT INTO barang (kategori, nama, gambar, harga_beli, harga_jual, stok) 
-                VALUES ('$kategori', '$nama', '$target_file', '$harga_beli', '$harga_jual', '$stok')";
-        $conn->query($sql);
-    } else {
-        echo "Gagal mengunggah gambar.";
-    }
-}
-
-// Update data barang
-if (isset($_POST['update'])) {
-    $id_barang = (int)$_POST['id_barang'];
-    $nama = $conn->real_escape_string($_POST['nama']);
-    $kategori = $conn->real_escape_string($_POST['kategori']);
-    $harga_jual = (int)$_POST['harga_jual'];
-    $harga_beli = (int)$_POST['harga_beli'];
-    $stok = (int)$_POST['stok'];
-
-    // Proses upload gambar baru jika ada
-    $gambar_name = basename($_FILES["gambar"]["name"]);
-    $target_dir = "uploads/";
-    $target_file = $target_dir . $gambar_name;
-
-    if (!empty($_FILES["gambar"]["tmp_name"]) && move_uploaded_file($_FILES["gambar"]["tmp_name"], $target_file)) {
-        $sql = "UPDATE barang 
-                SET kategori = '$kategori', nama = '$nama', gambar = '$target_file', 
-                    harga_beli = '$harga_beli', harga_jual = '$harga_jual', stok = '$stok' 
-                WHERE id_barang = $id_barang";
-    } else {
-        $sql = "UPDATE barang 
-                SET kategori = '$kategori', nama = '$nama', 
-                    harga_beli = '$harga_beli', harga_jual = '$harga_jual', stok = '$stok' 
-                WHERE id_barang = $id_barang";
-    }
-    $conn->query($sql);
-}
-
-// Hapus data barang
-if (isset($_GET['hapus'])) {
-    $id_barang = (int)$_GET['hapus'];
-    $sql = "DELETE FROM barang WHERE id_barang = $id_barang";
-    $conn->query($sql);
-}
-
-// Ambil semua data barang
-$sql = "SELECT * FROM barang";
-$result = $conn->query($sql);
-?>
-
+```ruby
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -195,8 +103,8 @@ $result = $conn->query($sql);
             </button>
         </form>
     <?php endif; ?>
-</body
-```ruby
-![img](Hasil_output.jpeg)
-
+</body>
+</html>
 ```
+
+![img](Hasil_output.jpeg)
