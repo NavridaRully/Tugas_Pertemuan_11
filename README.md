@@ -197,6 +197,3 @@ $result = $conn->query($sql);
     <?php endif; ?>
 </body
 ```ruby
-
-2. Hasil Outputnya :
-![img](Hasil_Output.jpeg)
