@@ -107,4 +107,4 @@
 </html>
 ```
 
-![img](Hasil_output.jpeg)
+![img](Hasil_Output.jpeg)
